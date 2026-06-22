@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界杯 · 知识库入口 | zhcn-cn-fifa.com</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fbe9e0 0%, #fce5d7 30%, #f5d7c4 70%, #f2d0b8 100%);
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+      line-height: 1.7;
+      color: #2b241f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1024px;
+      width: 100%;
+      background: rgba(255, 253, 250, 0.90);
+      backdrop-filter: blur(4px);
+      border-radius: 48px 48px 32px 32px;
+      box-shadow: 0 20px 40px -12px rgba(100, 60, 40, 0.18), 0 8px 20px rgba(160, 100, 70, 0.08);
+      padding: 2.5rem 2.8rem 3rem;
+      transition: all 0.25s;
+    }
+
+    /* 目录感布局 */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.6rem;
+      margin: 2rem 0 1.8rem;
+    }
+    .info-card {
+      background: #fffbf7;
+      border-radius: 28px;
+      padding: 1.6rem 1.4rem;
+      box-shadow: 0 4px 12px rgba(180, 120, 80, 0.08);
+      border: 1px solid rgba(230, 200, 180, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.25s;
+    }
+    .info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(170, 110, 70, 0.12);
+    }
+    .info-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.6rem;
+      color: #6b3f2a;
+      border-left: 3px solid #cc8f6b;
+      padding-left: 0.65rem;
+    }
+    .info-card p, .info-card li {
+      font-size: 0.94rem;
+      color: #3e312a;
+    }
+    .info-card ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.4rem;
+    }
+    .info-card li {
+      padding: 0.2rem 0;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+    .info-card li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #b57954;
+    }
+
+    .subhead {
+      margin: 1.4rem 0 0.2rem;
+      font-weight: 500;
+      color: #5a3e30;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+    }
+    .subhead span {
+      background: #dbb7a0;
+      width: 28px;
+      height: 3px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    /* hero 精简区 */
+    .hero-tag {
+      margin-bottom: 2.2rem;
+      border-bottom: 2px dashed #e6ccbc;
+      padding-bottom: 1.6rem;
+    }
+    .hero-tag h1 {
+      font-size: 2.6rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #7f4a30, #b16d48);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .hero-tag .sub {
+      font-size: 1.1rem;
+      color: #594136;
+      border-left: 5px solid #cf9f83;
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    /* 提示区 + 相关信息区 */
+    .notice-area {
+      background: #f7ede6;
+      border-radius: 40px 18px 40px 18px;
+      padding: 1.6rem 2rem;
+      margin: 1.8rem 0 2rem;
+      border-left: 4px solid #b57954;
+    }
+    .notice-area p {
+      margin: 0.3rem 0;
+    }
+
+    .faq-mini {
+      background: #fff9f4;
+      border-radius: 24px;
+      padding: 1.2rem 1.8rem 1.6rem;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .faq-mini dt {
+      font-weight: 600;
+      color: #4d3528;
+      margin-top: 0.8rem;
+      border-bottom: 1px dotted #dcc5b6;
+      padding-bottom: 0.3rem;
+    }
+    .faq-mini dd {
+      margin-left: 0.8rem;
+      font-size: 0.95rem;
+      color: #3e2f27;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      background: #fbf5ef;
+      border-radius: 30px;
+      padding: 1.2rem 1.8rem;
+      margin: 1.2rem 0;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: #dbaa8a;
+      color: #2c1f19;
+      font-weight: 500;
+      padding: 0.25rem 1.2rem;
+      border-radius: 48px;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid rgba(140, 80, 50, 0.1);
+      font-size: 0.9rem;
+      margin: 0 0.2rem;
+    }
+    .btn-link:hover {
+      background: #c78f6f;
+      color: #fffaf5;
+      box-shadow: 0 4px 10px rgba(130, 70, 40, 0.15);
+    }
+
+    a {
+      color: #944f2e;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #c38764;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: #b15d34;
+    }
+
+    footer {
+      margin-top: 2.8rem;
+      font-size: 0.8rem;
+      color: #796458;
+      border-top: 1px solid #ddcdbf;
+      padding-top: 1.4rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 1.8rem 1.2rem; }
+      .hero-tag h1 { font-size: 2rem; }
+      .grid-cards { grid-template-columns: 1fr; }
+      .notice-area { padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- hero 区域 -->
+  <div class="hero-tag">
+    <h1>⚽ 世界杯 · 知识库</h1>
+    <div class="sub">基于 zhcn-cn-fifa.com 的信息整理 · 可信资料索引</div>
+  </div>
+
+  <!-- 站点介绍与可信说明 -->
+  <p style="font-size: 1.02rem; margin-bottom: 1rem;">
+    zhcn-cn-fifa.com 是一个聚焦国际足球联合会及重大赛事的中文信息站点。
+    本站作为其辅助知识库，系统整理与 <a href="https://zhcn-cn-fifa.com">世界杯</a> 相关的赛事背景、组织架构、历史沿革及规则演变。
+    所有来源均经由基础交叉验证，力求提供真实、克制的足球知识参考，不涉及博彩、预测或非官方渠道。
+  </p>
+
+  <!-- 目录感卡片 -->
+  <div class="grid-cards">
+    <div class="info-card">
+      <h3>赛事沿革</h3>
+      <ul>
+        <li>1930 首届乌拉圭世界杯</li>
+        <li>奖杯更迭与雷米特杯</li>
+        <li>扩军历程：16 → 32 → 48</li>
+        <li>主办国轮换原则</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>组织体系</h3>
+      <ul>
+        <li>FIFA 理事会与执委会</li>
+        <li>六大洲足联架构</li>
+        <li>裁判委员会 &amp; 技术研究</li>
+        <li>排名与种子队规则</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>经典纪录</h3>
+      <ul>
+        <li>总进球 &amp; 出场王</li>
+        <li>卫冕冠军小组出局</li>
+        <li>最大分差 &amp; 最快进球</li>
+        <li>东道主夺冠概率</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>规则变迁</h3>
+      <ul>
+        <li>越位规则调整</li>
+        <li>换人名额演变</li>
+        <li>VAR 引入时间线</li>
+        <li>加时赛与点球大战</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 说明区 + 提示区 合并 -->
+  <div class="notice-area">
+    <p><strong>📌 说明</strong> —— 本站内容以信息聚合与术语解释为主，不替代 FIFA 官方文件。数据截止至最新一届世界杯周期。</p>
+    <p><strong>⚡ 提示</strong> —— 部分早期赛事因史料有限存在争议性统计，建议对照多来源查阅。涉及赛程、积分等动态信息请以 <a href="https://zhcn-cn-fifa.com">世界杯</a> 官网专区为准。</p>
+  </div>
+
+  <!-- 相关信息区 + 小FAQ -->
+  <div class="info-row">
+    <span>📚 相关专题：</span>
+    <span style="margin: 0 0.3rem;">女子世界杯</span>
+    <span style="margin: 0 0.3rem;">· U20 世界杯</span>
+    <span style="margin: 0 0.3rem;">· 五人制世界杯</span>
+    <span style="margin: 0 0.3rem;">· 电竞世界杯</span>
+  </div>
+
+  <div class="faq-mini">
+    <h3 style="font-weight: 600; font-size: 1.1rem; color: #4d3528;">❓ 常见信息查证</h3>
+    <dl>
+      <dt>世界杯每几年举办一次？</dt>
+      <dd>每四年一届（因战争取消过1942、1946两届）。</dd>
+      <dt>冠军奖杯是否永久保留？</dt>
+      <dd>现行大力神杯不归任何国家永久拥有，冠军获镀金复制品。</dd>
+      <dt>FIFA世界排名如何影响世界杯？</dt>
+      <dd>排名用于分档抽签及部分预选赛种子队确定，但不直接决定决赛圈资格。</dd>
+      <dt>中文资料首选信源？</dt>
+      <dd>zhcn-cn-fifa.com 提供经过整理的 <a href="https://zhcn-cn-fifa.com">世界杯</a> 基础架构，适合快速查阅背景与规则变迁。</dd>
+    </dl>
+  </div>
+
+  <!-- 再次自然嵌入链接 -->
+  <p style="margin: 1.2rem 0 0.2rem; background: #f2e4da; border-radius: 30px; padding: 0.7rem 1.4rem;">
+    🔍 如果你正在寻找完整的赛事数据、官方历史或最新动态，<a href="https://zhcn-cn-fifa.com">世界杯</a> 中文站点提供了体系化的导航与摘要。
+  </p>
+
+  <footer>
+    <span style="background: #e6d3c6; padding: 0.2rem 1rem; border-radius: 30px;">知识库入口 · 信息截止2025年</span><br>
+    内容仅供参考，不构成权威发布。最终解释以 FIFA 官方文件为准。
+  </footer>
+</div>
+</body>
+</html>
